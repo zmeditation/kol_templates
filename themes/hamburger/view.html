@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Loading custom fonts -->
+     {{ content.title_font | load_font}}
+     {{ content.headline_font | load_font}}
+     {{ content.body_font | load_font}}
+
+<script src="{% jquery 1.10.2 %}"></script>
+{% common_header %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!-- Bootstrap core CSS -->
+<link href="{% asset_path css/bootstrap/3.1.1/css/bootstrap.min.css %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<script type="text/javascript" src="{% asset_path css/bootstrap/3.1.1/js/bootstrap.min.js %}"></script>
+
+<style>
+body {
+  {{ content.body_font | font_family }};
+  background-color: {{content.footer_background_color}};
+}
+
+a {
+  color: {{content.link_color}};
+}
+
+header {
+  color: {{content.header_text_color}};
+  background-color: {{content.header_background_color}};
+  {{ content.title_font | font_family }}
+}
+
+header a {
+  color: {{content.header_text_color}};
+  text-decoration: underline;
+}
+
+
+.logo {
+  width: 350px;
+  margin-top: 90px;
+}
+
+.top-row {
+  padding:40px 0;
+}
+
+.jumbotron-2 {
+  padding-top:40px;
+  padding-bottom:40px;
+  color: {{content.text_color}};
+  min-height: 450px;
+  background-color: {{content.background_color}};
+  margin-bottom: 0px;
+}
+
+#signup {
+  {% if content.form_position == 'Left' %}
+    margin-left: 0px;
+  {% else %}
+    float:right;
+    margin-right: 0px;
+  {% endif %}
+}
+
+.thanks h1 {
+  text-align: left;
+  font-size: 28px;
+  color: {{content.text_color}};
+  {{ content.headline_font | font_family }} 
+}
+
+.thanks a {
+  color: {{content.link_color}};
+}
+
+.btn-primary {
+  margin-top: 10px;
+  background-color: {{content.button_color}};
+  width: 100%;
+  border:none;
+}
+
+.btn-primary:hover, .btn-primary:active {
+  background-color: {{content.button_color | darker_color }};
+}
+
+
+section {
+  padding-top:40px;
+  padding-bottom:40px;
+  background-color: {{content.header_background_color}};
+}
+
+section h1  {
+  color: {{content.header_text_color}};
+  {{ content.body_font | font_family }};
+}
+
+.modal-header {
+  min-height: 15px;
+  border-bottom: none;
+}
+
+.modal-header .close {
+  margin-top: -12px;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  margin: 10% auto;
+}
+
+.modal-body {
+  padding: 0px 20px 20px;
+}
+
+.modal-content {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+
+footer {
+  padding-top:40px;
+  padding-bottom:30px;
+  background-color: {{content.footer_background_color}};
+}
+
+footer .row {
+  
+  color: {{content.footer_text_color}};
+}
+
+footer a {
+  color: {{content.footer_link_color}};
+}
+
+#privacy {
+  text-align: right;
+}
+
+.social {
+  text-align: center;
+  margin-top: -7px;
+}
+.social i {
+  font-size: 24px;
+  color: #ffffff;
+  padding: 5px;
+}
+
+@media (max-width: 768px) {
+
+  header ul {
+    margin-top: 60px;
+    float: left;
+  }
+  .featured {
+    margin-top: 80px;
+  }
+  #copyright {
+    text-align: center;
+  }
+  #privacy {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .social {
+    margin-top: 0px;
+  }
+  
+}
+
+
+#kol_fade {
+   display: none; /*--hidden by default--*/
+   background: #000;
+   position: fixed; left: 0; top: 0;
+   width: 100%; height: 100%;
+   opacity: .60;
+   z-index: 9999;
+}
+{% if content.form_position == 'Left' %}
+  {% assign right_offset = 'col-md-offset-1' %}
+{% else %}
+  {% assign left_offset = 'col-md-offset-1' %}
+{% endif %}
+</style>
+<script src="{% kol_submit_response %}"></script>
+<script src="{% kol_external 2 %}"></script>
+<script> 
+jQuery(document).ready(function(){
+  new KOLResponse();
+  new KOLValidation();
+});
+</script>
+
+{% integrations header %}
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="container">
+      <div class="row top-row">
+        <div class="col-xs-12 col-md-12">
+          <div class="top" data-mercury="froala" data-content-name="top">
+            {{content.top}}
+          </div>
+        </div>
+      </div>            
+    </div><!-- /.container --> 
+</header>
+<!-- Header -->
+<!-- Jumbotron -->
+<div class="jumbotron-2">
+  <div class="container">
+    <div class="row">
+      <div id="signup" class="col-sm-6 col-md-4 {{left_offset}}">
+
+      {% form %}
+      <!-- Form -->
+      <div class="description"data-mercury="froala" data-content-name="description">{{content.description}}</div>
+      {% for element in form_elements %}
+        <div class="form-group">
+        {% assign req_star = '' %}
+        {% if element.required_class == 'required' %}
+          {% assign req_star = '*' %}
+        {% endif %}
+        {% if element.field_type !='checkbox' %}
+        <label class="control-label" for="{{element.name}}">
+          {{element.display_text}} {{req_star}}
+        </label>
+        {% endif %}
+        {% case element.field_type %}
+        {% when 'email' %}
+        <input id="email" class="required form-control " type="email" name="email" placeholder="{{element.placeholder}}" data-label-text="Email">
+        {% when 'text' %}
+        <input class="form-control {{element.required_class}}" id="{{element.name}}" name="{{element.name}}" placeholder="{{element.placeholder}}" type="text" data-label-text="{{element.display_text}}" />
+        {% when 'textarea' %}
+        <textarea id="{{element.name}}" class="form-control  {{element.required_class}}" name="{{element.name}}" rows=3 placeholder="{{element.placeholder}}" data-label-text="{{element.display_text}}"></textarea>
+        {% when 'choice' %}
+        <select class="form-control" id="{{element.name}}" name="{{element.name}}"  placeholder="{{element.placeholder}}" data-label-text="{{element.display_text}}">
+          {% for choice in element.choices %}
+          <option>{{choice}}</option>
+          {% endfor %}
+        </select>
+        {% when 'checkbox' %}                    
+        <label class="checkbox">
+          <input type="checkbox" id="{{element.name}}" class="{{element.required_class}}" name="{{element.name}}" data-label-text="{{element.display_text}}" />{{element.placeholder}}
+        </label>
+        {% endcase %}
+      </div><!-- form group -->
+      {% endfor %}
+      <div class="form-group">
+        <input type="submit" id="submit_button" class="btn btn-primary btn-lg btn-block" name="submit" value="{{ content.button_text }}"/>
+      </div>
+      <div class="rich-description below-form" data-mercury="froala" data-content-name="text_below_form">
+        {{ content.text_below_form }}
+      </div>
+      
+      {% endform %}
+        
+        <!-- Response -->
+      {% response %}
+        <div id="subscribe">
+          {% common_thankyou_share %}
+        </div>
+       {% endresponse %}
+
+      </div>  
+      <!-- Start Video -->
+      <div class="col-sm-6 col-md-7 {{right_offset}} ">
+        <div class="featured">
+          <div data-mercury="froala" data-content-name="hero_text">
+              {{content.hero_text}}
+          </div>
+        </div>
+      </div><!-- Video END span8 -->
+    </div>
+  </div>
+</div>
+<!-- Section -->
+<section>
+  <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+              <div data-mercury="froala" data-content-name="larger_footer_bar">
+                {{content.larger_footer_bar}}
+              </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <div id="copyright" class="footer-text"  data-mercury="froala" data-content-name="the_footer_text">
+                {{content.the_footer_text}}
+        </div>
+      </div>
+
+      <div class="col-sm-8">
+        <div class="social social-bottom">
+          {% if content.facebook_url != '' %}
+          <a class="facebook" href="{{content.facebook_url}}" target="_blank">
+            <i class="fa fa-facebook"></i>
+          </a>
+          {% endif %}
+          {% if content.twitter_url != '' %}
+          <a class="twitter" href="{{content.twitter_url}}" target="_blank">
+            <i class="fa fa-twitter"></i>
+          </a>
+          {% endif %}
+          {% if content.pinterest_url != '' %}
+          <a class="pinterest" href="{{content.pinterest_url}}" target="_blank">
+            <i class="fa fa-pinterest"></i>
+          </a>
+          {% endif %}
+          {% if content.googleplus_url != '' %}
+          <a class="googleplus" href="{{content.googleplus_url}}" target="_blank">
+            <i class="fa fa-google-plus"></i>
+          </a>
+          {% endif %}
+          {% if content.instagram_url != '' %}
+          <a class="instagram" href="{{content.instagram_url}}"> target="_blank">
+            <i class="fa fa-instagram"></i>
+          </a>
+          {% endif %}
+          {% if content.linkedin_url != '' %}
+          <a class="linkedin" href="{{content.linkedin_url}}" target="_blank">
+            <i class="fa fa-linkedin"></i>
+          </a>
+          {% endif %}
+          {% if content.youtube_url != '' %}
+          <a class="youtube" href="{{content.youtube_url}}" target="_blank">
+            <i class="fa fa-youtube"></i>
+          </a>
+          {% endif %}
+          {% if content.blog_url != '' %}
+          <a class="rss" href="{{content.blog_url}}" target="_blank">
+            <i class="fa fa-rss"></i>
+          </a>
+          {% endif %}
+          {% if content.email_address != '' %}
+          <a class="email" href="mailto:{{content.email_address}}">
+            <i class="fa fa-envelope"></i>
+          </a>
+          {% endif %}
+        </div> <!--// .social -->
+      </div>
+      <div class="col-sm-2">
+        <div id="privacy">
+          <a id="privacy_link" href="{{page_url}}/privacy" >{{content.privacy_link_text}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% asset_path js/jquery-libs/fitvid/1.1/jquery.fitvids.js %}"></script>
+<script> 
+jQuery(document).ready(function(){
+  $(".container, .flex-container").fitVids();
+});
+</script>
+{% integrations footer %}
+</body>
+</html>

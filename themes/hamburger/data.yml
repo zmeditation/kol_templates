@@ -1,0 +1,149 @@
+form:
+- name: Email
+  field_type: email
+  description: Type your email here
+  required: true
+include_default_options: true
+designer_version: 2
+options:
+  basics:
+    form_position:
+      hint: Wich side of the page do you want the signup form on.
+      editor: Choice
+      default: Left
+      choices:
+      - Left
+      - Right
+  fonts:
+    title_font:
+      hint: Customize your title fonts.
+      editor: font
+      default: Helvetica+Neue
+    headline_font:
+      hint: Customize fonts used in headlines.
+      editor: font
+      default: Helvetica+Neue
+    body_font:
+      hint: Customize your body fonts.
+      editor: font
+      default: Helvetica+Neue
+  colors:
+    header_background_color:
+      hint: The color behind the top of the page
+      editor: color
+      default: "#2eb2ff"
+    header_text_color:
+      hint: The color of text on top of the header
+      editor: color
+      default: "#FFFFFF"
+    background_color:
+      hint: The color behind the text on your page.
+      editor: color
+      default: "#ffffff"
+    text_color:
+      hint: Select the color of the text on your landing page.
+      editor: color
+      default: "#333333"
+    footer_background_color:
+      hint: Footer background color.
+      editor: color
+      default: '#333333'
+    footer_text_color:
+      hint: Color used for the footer text.
+      editor: color
+      default: "#FFFFFF"
+    footer_link_color:
+      hint: Color used for footer link.
+      editor: color
+      default: "#0E76B2"
+    link_color:
+      hint: The color used for links within your landing page.
+      editor: color
+      default: "#0E76B2"
+    button_color:
+      hint: Color used for the form submit button.
+      editor: color
+      default: "#FF474E"
+  signup:
+    form_style:
+      hint: The style of the form elements and labels.
+      editor: Choice
+      default: Default
+    button_text:
+      hint: Text of the button on the form
+      editor: string
+      default: Signup Today!
+    thank_you_message:
+      hint: This is what someone sees after they enter their email. Thank them and
+        encourage them to share.
+      editor: html
+      default: |
+        <h4>Thanks for your interest! Now...</h4> <h1>INVITE FRIENDS & EARN AMAZING REWARDS </h1>
+  footer:
+    privacy_link_text:
+      editor: string
+      default: Privacy
+      hint: The name of the link to your privacy page.
+    facebook_url:
+      hint: The full link to your Facebook page.
+      editor: string
+    twitter_url:
+      hint: The full link to your Twitter page.
+      editor: string
+    pinterest_url:
+      hint: The full link to your Pinterest page.
+      editor: string
+    googleplus_url:
+      hint: The full link to your Google Plus page.
+      editor: string
+    instagram_url:
+      hint: The full link to your Instagram page.
+      editor: string
+    linkedin_url:
+      hint: The full link to your LinkedIn page.
+      editor: string
+    youtube_url:
+      hint: The full link to your youtube channel.
+      editor: string
+    blog_url:
+      hint: The full link to your blog.
+      editor: string
+    email_address:
+      hint: The email address to contact you by email.
+      editor: string
+  inline:
+    title:
+      hint: The title of your landing page that's shown unless you use a logo image.
+      editor: string
+      default: Name me please
+    top:
+      hint: Text on the top header
+      editor: html
+      default: "<h1 style='text-align: center;'>This is different</h1>"
+    tagline:
+      hint: A one line description of your form.
+      editor: string
+    text_below_form: 
+      hint: Text below the form
+      editor: html
+      default: ! ' <p><span style="font-size: 11px;">We respect your privacy!</span></p>
+'
+    hero_text:
+      hint: Text for the right side
+      editor: html
+      default: ! '<p><span class="f-video-editor fr-fvn"><iframe width="640" height="360" src="//player.vimeo.com/video/51303005" frameborder="0" allowfullscreen=""></iframe></span><span class="f-video-editor fr-fvn"><br></span></p>
+      <p>Delete this video to add your own video or text. </p>
+'
+    description:
+      hint: Used for a longer description about why someone should fill out this form.
+      editor: Html
+      default: "<h2>I'm sure you'll come up with amazing headlines.</h2> <p>Description
+        here over two lines lorem ipsun dolor sit amet prosim alis consecetur.</p>"
+    larger_footer_bar:
+      editor: html
+      hint: The area on the page bottom
+      default: "<h1>simply...the best way to promote your business to more customers!</h1>"
+    the_footer_text:
+      editor: html
+      default: "© 2015"
+      hint: Footer text
